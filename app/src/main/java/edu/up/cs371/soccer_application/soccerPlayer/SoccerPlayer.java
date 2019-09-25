@@ -12,6 +12,7 @@ public class SoccerPlayer {
 	// instance variables
 	private String firstName; // first name
 	private String lastName; // last name
+	private String fullName; // firstName + " ## " + lastName
 	private int uniformNum; // uniform number
 	private int goalsScored; // goals scored
 	private int assists; // assists
@@ -34,6 +35,7 @@ public class SoccerPlayer {
 	public SoccerPlayer(String first, String last, int uniform, String team) {
 		firstName = first;
 		lastName = last;
+		fullName = createFullName(firstName, lastName);
 		uniformNum = uniform;
 		teamName = team;
 		goalsScored = 0;
@@ -52,6 +54,7 @@ public class SoccerPlayer {
 	public String getLastName() {
 		return lastName;
 	}
+	public String getFullName() { return fullName; }
 	public int getUniform() {
 		return uniformNum;
 	}
@@ -106,5 +109,10 @@ public class SoccerPlayer {
 	}
 	public void bumpRedCards() {
 		redCards++;
+	}
+
+	public static String createFullName(String fn, String ln)
+	{
+		return fn + " ## " + ln;
 	}
 }

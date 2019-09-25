@@ -16,7 +16,9 @@ import java.util.*;
  * @version *** put date of completion here ***
  *
  */
-public class SoccerDatabase implements SoccerDB {
+public class SoccerDatabase implements SoccerDB
+{
+    private Hashtable<String, SoccerPlayer> the_database = new Hashtable<>();
 
     /**
      * add a player
@@ -24,9 +26,18 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#addPlayer(String, String, int, String)
      */
     @Override
-	public boolean addPlayer(String firstName, String lastName,
-			int uniformNumber, String teamName) {
-        return false;
+	public boolean addPlayer(String firstName, String lastName, int uniformNumber, String teamName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            Log.d("SoccerDatabase.java:34", "ERROR: PLAYER ALREADY EXISTS");
+            return false;
+        }
+
+        SoccerPlayer sp = new SoccerPlayer(firstName, lastName, uniformNumber, teamName);
+        the_database.put(fullName, sp);
+        return true;
 	}
 
     /**
@@ -35,7 +46,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#removePlayer(String, String)
      */
     @Override
-    public boolean removePlayer(String firstName, String lastName) {
+    public boolean removePlayer(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.remove(fullName);
+            Log.d("SoccerDatabase.java:54", "PLAYER REMOVED");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:59", "ERROR: PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -45,7 +66,15 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#getPlayer(String, String)
      */
     @Override
-	public SoccerPlayer getPlayer(String firstName, String lastName) {
+	public SoccerPlayer getPlayer(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            Log.d("SoccerDatabase.java:65", "PLAYER EXISTS");
+            return the_database.get(fullName);
+        }
+        Log.d("SoccerDatabase.java:68", "PLAYER DOES NOT EXIST");
         return null;
     }
 
@@ -55,7 +84,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpGoals(String, String)
      */
     @Override
-    public boolean bumpGoals(String firstName, String lastName) {
+    public boolean bumpGoals(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpGoals();
+            Log.d("SoccerDatabase.java:93", "GOALS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:97", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -65,7 +104,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpAssists(String, String)
      */
     @Override
-    public boolean bumpAssists(String firstName, String lastName) {
+    public boolean bumpAssists(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpAssists();
+            Log.d("SoccerDatabase.java:113", "ASSISTS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:117", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -75,7 +124,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpShots(String, String)
      */
     @Override
-    public boolean bumpShots(String firstName, String lastName) {
+    public boolean bumpShots(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpShots();
+            Log.d("SoccerDatabase.java:133", "SHOTS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:137", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -85,7 +144,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpSaves(String, String)
      */
     @Override
-    public boolean bumpSaves(String firstName, String lastName) {
+    public boolean bumpSaves(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpSaves();
+            Log.d("SoccerDatabase.java:153", "SAVES++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:157", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -95,7 +164,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpFouls(String, String)
      */
     @Override
-    public boolean bumpFouls(String firstName, String lastName) {
+    public boolean bumpFouls(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpFouls();
+            Log.d("SoccerDatabase.java:173", "FOULS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:177", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -105,7 +184,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpYellowCards(String, String)
      */
     @Override
-    public boolean bumpYellowCards(String firstName, String lastName) {
+    public boolean bumpYellowCards(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpYellowCards();
+            Log.d("SoccerDatabase.java:193", "YELLOW CARDS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:197", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -115,7 +204,17 @@ public class SoccerDatabase implements SoccerDB {
      * @see SoccerDB#bumpRedCards(String, String)
      */
     @Override
-    public boolean bumpRedCards(String firstName, String lastName) {
+    public boolean bumpRedCards(String firstName, String lastName)
+    {
+        String fullName = SoccerPlayer.createFullName(firstName, lastName);
+        if(the_database.containsKey(fullName))
+        {
+            the_database.get(fullName).bumpRedCards();
+            Log.d("SoccerDatabase.java:213", "RED CARDS++");
+            return true;
+        }
+
+        Log.d("SoccerDatabase.java:217", "PLAYER DOES NOT EXIST");
         return false;
     }
 
@@ -126,7 +225,8 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     // report number of players on a given team (or all players, if null)
-	public int numPlayers(String teamName) {
+	public int numPlayers(String teamName)
+    {
         return -1;
 	}
 
@@ -137,7 +237,8 @@ public class SoccerDatabase implements SoccerDB {
      */
 	// get the nTH player
 	@Override
-    public SoccerPlayer playerNum(int idx, String teamName) {
+    public SoccerPlayer playerNum(int idx, String teamName)
+    {
         return null;
     }
 
@@ -148,7 +249,8 @@ public class SoccerDatabase implements SoccerDB {
      */
 	// read data from file
     @Override
-	public boolean readData(File file) {
+	public boolean readData(File file)
+    {
         return file.exists();
 	}
 
@@ -159,7 +261,8 @@ public class SoccerDatabase implements SoccerDB {
      */
 	// write data to file
     @Override
-	public boolean writeData(File file) {
+	public boolean writeData(File file)
+    {
         return false;
 	}
 
@@ -168,7 +271,8 @@ public class SoccerDatabase implements SoccerDB {
      * @param s the string to log
      * @return the string s, unchanged
      */
-    private String logString(String s) {
+    private String logString(String s)
+    {
         Log.i("write string", s);
         return s;
     }
@@ -180,7 +284,8 @@ public class SoccerDatabase implements SoccerDB {
      */
 	// return list of teams
     @Override
-	public HashSet<String> getTeams() {
+	public HashSet<String> getTeams()
+    {
         return new HashSet<String>();
 	}
 
